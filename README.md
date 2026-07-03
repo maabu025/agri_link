@@ -23,12 +23,12 @@ AgriLink is a web platform built to support smallholder farmers in Northern Ghan
 
 ## Live Deployment
 
-- **Live app:** [ADD DEPLOYED FRONTEND URL HERE]
-- **Backend API:** [ADD DEPLOYED BACKEND URL HERE]
+- **Live app:** https://agri-link-1-7ais.onrender.com
+- **Backend API:** https://agri-link-9ui3.onrender.com
 
 ## Demo Video
 
-[ADD 5-MINUTE DEMO VIDEO LINK HERE]
+https://youtu.be/zYyrbRsF7gg
 
 The video focuses on core functionality (Market/MoMo payments, Irrigation Advisory, Enterprise Hub) rather than sign-up/sign-in flows.
 
@@ -127,6 +127,19 @@ The implemented system successfully delivers on the core objectives set out in t
 - **MoMo settlement is simulated**, not connected to a real Mobile Money provider (MTN MoMo Open API, Vodafone Cash, or AirtelTigo Money). The current implementation uses a server-side `setTimeout` with a randomized 90% success rate to stand in for the real asynchronous "request to pay" and callback confirmation flow. This was a deliberate scope decision: production access to MTN's MoMo API requires business registration and API approval that falls outside the timeline of this project. The surrounding UX (network detection, confirmation screen, polling for status, success/failure states) was still built to the same shape a real integration would require, so swapping in a live API is a contained, well-defined next step rather than a redesign.
 - **Data persistence** uses a flat JSON file rather than a proper database, which is adequate for demonstrating functionality but would not scale or persist reliably in a production deployment (especially on hosting platforms with ephemeral file systems).
 
+### Response to Supervisor Feedback
+
+Two specific points raised by the project supervisor during review were addressed directly:
+
+**1. Scientific grounding for soil type and water requirements.** My supervisor recommended that irrigation guidance be backed by a proper scientific basis for how soil type and weather affect water need, rather than a generic recommendation. This was implemented in the Irrigation Advisory feature as follows:
+- Each crop has a defined **baseline water requirement** (liters/hectare/day), derived from established agronomic water-need figures (e.g. rice requires substantially more water than sorghum or millet).
+- Each **soil type carries a multiplier** reflecting its drainage and water-retention properties — sandy soil (1.4×, drains fast, needs more frequent watering), loamy soil (1.0×, balanced baseline), and clay soil (0.7×, retains water, drains slowly and needs less frequent watering).
+- **Live weather data** (temperature, humidity, recent rainfall) is pulled in real time from the Open-Meteo API and factored in as a heat multiplier, so the recommendation adapts to actual current conditions in the farmer's region rather than a static seasonal average.
+- These three factors are combined with field size and days since last watering to produce a concrete watering volume, urgency level, and a recommended time-of-day for irrigation (chosen to minimize evaporation loss).
+This means the advisory isn't just a general tip — it is a calculated figure grounded in the interaction between crop physiology, soil science, and real-time weather, which was the core scientific gap the supervisor identified.
+
+**2. Payment gateway reliability.** My supervisor also flagged that the MoMo payment gateway was not functioning correctly during an earlier review. During testing for this submission, the root cause was identified and fixed: a mismatch between how the frontend and backend normalized Ghanaian phone numbers meant valid MTN numbers were being correctly detected on the frontend but incorrectly rejected by the backend's validation logic (see Testing Results above for the full root-cause analysis). With this fix, the payment flow — network detection, quantity/stock validation, confirmation, and simulated settlement — now works correctly and consistently end-to-end, as demonstrated in the deployed version and the demo video.
+
 ---
 
 ## Discussion
@@ -143,7 +156,7 @@ The impact of getting these right is that the platform becomes something a farme
 
 ## Recommendations
 
-1. **Integrate a real Mobile Money API** (MTN MoMo Open API Collections, or an aggregator like Paystack/Flutterwave that supports MoMo) to replace the simulated payment settlement. This is the single highest-impact next step for making the platform production-ready.
+1. **Integrate a real Mobile Money API** (MTN MoMo Open API Collections, or an aggregator like Paystack/Flutterwave that supports MoMo) to replace the simulated payment settlement. The network-detection and validation logic underneath this flow is now correct and consistent between frontend and backend (see Testing Results), so this step is about swapping the simulated `setTimeout` settlement for a real "request to pay" API call and webhook confirmation — not fixing the surrounding logic, which is already sound. This remains the single highest-impact next step for making the platform production-ready.
 2. **Move to a proper database** (PostgreSQL or MongoDB) instead of the current JSON file store, for real persistence and to support concurrent users safely.
 3. **Move secrets out of source code** — the JWT secret is currently hardcoded in `server.js` and should be loaded from an environment variable (`.env`) in any real deployment.
 4. **Add automated tests** (e.g. Jest) for critical logic such as `detectNetwork()` and `validateGhanaPhone()`, so regressions like the bug found during manual testing are caught automatically in the future.
