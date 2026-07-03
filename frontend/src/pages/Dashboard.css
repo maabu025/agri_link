@@ -1,0 +1,146 @@
+/* Dashboard.css */
+
+.dashboard { padding-top: 0.25rem; }
+
+.welcome-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, var(--green-pale) 0%, #f0fdf4 100%);
+  border: 1px solid var(--green-soft);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.welcome-title {
+  font-size: 20px;
+  font-weight: 600;
+  font-family: 'DM Serif Display', serif;
+  color: var(--green-dark);
+  margin-bottom: 4px;
+}
+
+.welcome-sub {
+  font-size: 14px;
+  color: var(--green-mid);
+}
+
+.welcome-badge {
+  background: white;
+  border: 1px solid var(--green-soft);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 13px;
+  color: var(--green-dark);
+  font-weight: 500;
+}
+
+/* Stat cards */
+.stat-card {
+  border-radius: var(--radius-md);
+  padding: 1.1rem;
+  border: 1px solid transparent;
+}
+
+.stat-card--green { background: var(--green-pale); border-color: #c6edd8; }
+.stat-card--blue { background: var(--blue-pale); border-color: #b5d4f4; }
+.stat-card--teal { background: #e0f7f1; border-color: #9FE1CB; }
+.stat-card--amber { background: var(--amber-pale); border-color: #FAC775; }
+
+.stat-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.stat-value {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: 'DM Serif Display', serif;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.stat-unit {
+  font-size: 16px;
+  font-weight: 400;
+  margin-left: 2px;
+}
+
+.stat-trend {
+  font-size: 12px;
+  color: var(--green-light);
+  font-weight: 500;
+}
+
+/* Price table */
+.price-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.price-table th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  padding: 0 0 8px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.price-table td {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.price-table tr:last-child td { border-bottom: none; }
+
+.crop-name { font-weight: 500; }
+.crop-price { color: var(--green-mid); font-weight: 600; }
+.crop-market { color: var(--text-secondary); font-size: 13px; }
+
+.link-small {
+  font-size: 13px;
+  color: var(--green-mid);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.link-small:hover { text-decoration: underline; }
+
+/* Quick actions */
+.quick-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quick-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  background: var(--bg-page);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.15s;
+}
+
+.quick-action-btn:hover {
+  background: var(--green-pale);
+  border-color: var(--green-soft);
+}
+
+.qa-icon { font-size: 22px; }
+.qa-title { font-size: 14px; font-weight: 500; }
+.qa-sub { font-size: 12px; color: var(--text-secondary); }
