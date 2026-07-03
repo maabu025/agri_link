@@ -1,0 +1,78 @@
+/* WeatherWidget.css */
+
+.weather-card {
+  background: linear-gradient(135deg, #0a5c47 0%, #1a9e75 100%);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.25rem;
+  color: white;
+  margin-bottom: 1.5rem;
+}
+
+.weather-card--loading,
+.weather-card--error {
+  opacity: 0.7;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.weather-spinner {
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Current row */
+.weather-current {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.weather-left  { display: flex; align-items: center; gap: 1rem; }
+.weather-icon  { font-size: 2.5rem; line-height: 1; }
+.weather-temp  { font-size: 2rem; font-weight: 700; line-height: 1; }
+.weather-desc  { font-size: 0.9rem; opacity: 0.85; margin-top: 2px; text-transform: capitalize; }
+.weather-location { font-size: 0.78rem; opacity: 0.7; margin-top: 2px; }
+
+.weather-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.weather-meta  { font-size: 0.8rem; opacity: 0.85; display: flex; align-items: center; gap: 4px; }
+.weather-toggle { font-size: 0.75rem; margin-top: 6px; opacity: 0.7; }
+
+/* Forecast strip */
+.weather-forecast {
+  display: flex;
+  gap: 0;
+  margin: 0.75rem -0.1rem 0;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  padding-top: 0.75rem;
+  overflow-x: auto;
+}
+
+.forecast-day {
+  flex: 1;
+  min-width: 64px;
+  text-align: center;
+  padding: 0 0.35rem;
+  border-right: 1px solid rgba(255,255,255,0.12);
+}
+.forecast-day:last-child { border-right: none; }
+
+.forecast-date  { font-size: 0.72rem; opacity: 0.7; margin-bottom: 4px; }
+.forecast-icon  { font-size: 1.2rem; margin-bottom: 4px; }
+.forecast-temps { font-size: 0.82rem; display: flex; justify-content: center; gap: 5px; }
+.forecast-max   { font-weight: 600; }
+.forecast-min   { opacity: 0.65; }
+.forecast-rain  { font-size: 0.72rem; opacity: 0.8; margin-top: 3px; }
+
+/* Tip strip */
+.weather-tip {
+  font-size: 0.8rem;
+  opacity: 0.88;
+  margin-top: 0.75rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  line-height: 1.4;
+}
