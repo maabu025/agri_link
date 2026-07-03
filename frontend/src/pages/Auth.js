@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import './Auth.css';
+const API_BASE = process.env.REACT_APP_API_URL || '';
 
 const REGIONS = ['Tamale', 'Bolgatanga', 'Wa', 'Damango', 'Bawku'];
 
@@ -41,7 +42,7 @@ export default function Auth() {
         ? { phone: form.phone, password: form.password }
         : { name: form.name, phone: form.phone, region: form.region, password: form.password };
 
-      const res  = await fetch(endpoint, {
+      const res  = await fetch(`${API_BASE}${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),

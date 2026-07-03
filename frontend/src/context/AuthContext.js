@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext(null);
+const API_BASE = process.env.REACT_APP_API_URL || '';
 
 export function AuthProvider({ children }) {
   const [user, setUser]     = useState(null);
@@ -14,7 +15,7 @@ export function AuthProvider({ children }) {
     async function validate() {
       if (!token) { setLoading(false); return; }
       try {
-        const res  = await fetch('/api/auth/me', { headers: { Authorization: `Bearer ${token}` } });
+        const res  = await fetch(`${API_BASE}/api/auth/me`, { headers: { Authorization: `Bearer ${token}` } });
         const json = await res.json();
         if (json.success) setUser(json.user);
         else logout();
@@ -39,9 +40,10 @@ export function AuthProvider({ children }) {
     setUser(null);
   }
 
-  // Attach Bearer token to every fetch automatically
+ 
+// Attach Bearer token to every fetch automatically
   function authFetch(url, options = {}) {
-    return fetch(url, {
+    return fetch(`${API_BASE}${url}`, {
       ...options,
       headers: {
         'Content-Type': 'application/json',
@@ -51,7 +53,7 @@ export function AuthProvider({ children }) {
     });
   }
 
-  return (
+   return (
     <AuthContext.Provider value={{ user, token, loading, login, logout, authFetch }}>
       {children}
     </AuthContext.Provider>
