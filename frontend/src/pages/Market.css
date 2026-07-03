@@ -1,0 +1,208 @@
+/* Market.css */
+
+.tab-bar {
+  display: flex;
+  gap: 4px;
+  background: var(--bg-page);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  margin-bottom: 1.5rem;
+  width: fit-content;
+}
+
+.tab-btn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.tab-btn:hover { color: var(--text-primary); }
+
+.tab-btn.active {
+  background: white;
+  color: var(--green-dark);
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.tab-description {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+/* Price cards */
+.price-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.15s;
+}
+
+.price-card:hover { box-shadow: var(--shadow-md); }
+
+.price-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+
+.price-crop {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.price-amount {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--green-mid);
+  font-family: 'DM Serif Display', serif;
+}
+
+.per-kg {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.price-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price-market {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* Listings */
+.listings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.listing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.listing-crop {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.listing-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.detail-label { color: var(--text-secondary); }
+.detail-value { font-weight: 500; }
+.detail-value.price { color: var(--green-mid); font-size: 14px; }
+
+.listing-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  padding: 8px 0;
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 10px;
+}
+
+.listing-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.listing-seller {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.seller-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--green-pale);
+  color: var(--green-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Sell form */
+.sell-form-wrap {
+  max-width: 600px;
+}
+
+.sell-form-card {
+  padding: 1.75rem;
+}
+
+.sell-title {
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'DM Serif Display', serif;
+  margin-bottom: 4px;
+}
+
+.sell-sub {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+}
+
+.sell-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+/* MoMo pay button on listing cards */
+.momo-pay-btn {
+  background: linear-gradient(135deg, #f5a623, #e8870a) !important;
+  color: white !important;
+  border: none !important;
+  font-weight: 600;
+}
+.momo-pay-btn:hover {
+  background: linear-gradient(135deg, #e8870a, #d07608) !important;
+}
