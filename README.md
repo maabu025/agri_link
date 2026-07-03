@@ -76,12 +76,13 @@ The frontend will open automatically at `http://localhost:3000`.
 
 ## Testing Results & Strategies
 
-*(Screenshots referenced below should be added to a `/screenshots` folder in this repo and embedded here, e.g. `![description](screenshots/filename.png)`)*
-
 ### 1. Functional Testing — Core Flows
 - Registering a new account and logging in
 - Posting a new crop listing and confirming it appears in the Market tab
 - Buying a listing with MoMo and confirming quantity/stock updates correctly
+
+![Successful MoMo payment on the deployed site](screenshots/payment_success.png)
+
 - Requesting an irrigation advisory for different crop/soil combinations
 - Loading the weather widget for each supported region
 
@@ -101,16 +102,28 @@ The frontend will open automatically at `http://localhost:3000`.
 - Payment failure path — the MoMo simulation has a 10% random failure rate, used to confirm the "Payment failed" screen and retry flow both work correctly
 
 ### 4. Bug Found & Fixed During Testing
+
+![Bug encountered: valid MTN number rejected with "Unrecognized MoMo network"](screenshots/bug encountered.png)
+
 During testing, a **network-mismatch bug** was discovered in the MoMo payment flow:
 - **Symptom:** the frontend correctly detected a phone number as "MTN MoMo," but submitting the payment was rejected by the backend with "Unrecognized MoMo network."
 - **Root cause:** the backend's `normalizePhone()` function stripped the leading `0` from phone numbers before checking it against the network-prefix table, while the prefix table itself used keys that included the leading `0` (e.g. `'059'`). This caused a valid number like `0592534928` to be checked against `"592"` instead of `"059"`, which never matched.
 - **Fix:** `detectNetwork()` on the backend was corrected to preserve the leading `0` when extracting the network prefix, matching the (correct) logic already used on the frontend.
+
+![Code fix applied to the network detection logic](screenshots/payment_success.png)
+
 - This is a good example of why **consistency between frontend and backend validation logic is critical** — the two must agree, or the same input can pass one layer and silently fail the other.
 
 ### 5. Performance Across Environments
 - Tested on desktop (Windows, Microsoft Edge) at `localhost` and via the deployed URL
 - Tested on a mobile browser via the deployed URL to confirm responsive layout and touch interactions work correctly
-- [Add any additional hardware/browser combinations tested]
+
+### 6. Deployment Evidence
+
+![Backend running locally](screenshots/backend-local-run.png)
+![Backend deployed successfully on Render](screenshots/render-backend-deploy.png)
+![Frontend deployed successfully on Render](screenshots/render-frontend-deploy.png)
+
 
 ---
 
